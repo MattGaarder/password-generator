@@ -131,6 +131,47 @@ function getRandom(arr) {
 function generatePassword() {
   var passwordOptions = getPasswordOptions();
   console.log(passwordOptions);
+  console.log(passwordOptions.characterAmount);
+  console.log(passwordOptions.special);
+  console.log(passwordOptions.numeric);
+  console.log(passwordOptions.lowerCase);
+  console.log(passwordOptions.upperCase);
+
+  //I need to now create an empty array and push the arrays the user selected depending on whether they are true or false
+
+  var arrays= [];
+  if (passwordOptions.special) {
+    arrays.push(specialCharacters);
+  }
+  if (passwordOptions.numeric) {
+    arrays.push(numericCharacters);
+  }
+  if (passwordOptions.lowerCase) {
+    arrays.push(lowerCasedCharacters);
+  }
+  if (passwordOptions.upperCase) {
+    arrays.push(upperCasedCharacters);
+  }
+
+  //I now have an array with all the arrays. The problem is that this is not particularly helpful for the above getRandom() function because the maximum length of this array is going to be 4.
+  //and not actually get a random element from within those arrays.
+  //unless I could somehow randomly select and array, and then once that's done, invoke the getRandom function within that array. Which might look something like:
+  //
+  var password = "";
+
+  // Loop for the number of characters specified by the user
+  for (var i = 0; i < passwordOptions.characterAmount; i++) {
+  // Randomly select one of the arrays
+  var arrayIndex = Math.floor(Math.random() * arrays.length);
+  // Randomly select a character from the array
+  var characterIndex = Math.floor(Math.random() * arrays[arrayIndex].length);
+  password += arrays[arrayIndex][characterIndex];
+  }
+
+  // Return the generated password
+  return password;
+}
+
 }
 
 generatePassword();
@@ -161,11 +202,7 @@ below is code that has been majorly tampered with. Above is code that is startin
 // use .push() to add these random characters to an empty array
 // Return this array to the user as the generated password 
 
-// Questions: When would be appropriate to use objects and when would be appropriate to use an array? 
-// When would it be appropriate to use key value pairs, or the .values or .map methods on our object? e.g. blackjack cards key-value pairs, or having an object of array like franco's
-// blackjack: why is my code not working + why does else {switch (card > 7 || card = ["K","Q"...] etc.)}      
-// is it always necessary to 'intialise' the variable before using it in the code?
-// is it necessary to have a different variable for each card dealt, is there a better way of doing this? 
+
 
 // Function to prompt user for password options
 // function getPasswordOptions() {
