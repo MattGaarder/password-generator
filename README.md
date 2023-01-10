@@ -1,2 +1,2 @@
 # password-generator
-An application that can be used to generate a random password based on criteria you've selected
+An application that can be used to generate a random password based on criteria you've selected. The code prompts users for what type of character they want in their password, and the desired number of characters. These options are saved in an object I have named passwordOptions. Based on this object I then use object methods to concatenate the desired arrays into a larger array I have called possibleCharacters. From this array I use a function to get a number of random characters from the array equal to the amount of characters the user wants in their password. This is then displayed on the webpage using methods provided in our starter code.  

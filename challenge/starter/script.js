@@ -87,7 +87,9 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-
+//apologies this code is a bit of a mess. I have found that not deleting things to make them more presentable has been useful to me in going back and seeing my thought proccess play out. 
+//if I happen to go down a path that has lead me astray I can see what it was that happened. It makes for not very pleasant reading, as a lot of my comments are a bit out of order and difficult to understand.
+//if you would like me to change this in upcoming challenges please let me know and I can be sure to turn in something that is more polished. Thanks for your time and feedback!
 
 
 var characterAmount = 0;
@@ -158,7 +160,7 @@ function generatePassword() {
 
   //I now have an array with all the arrays. The problem is that this is not particularly helpful for the above getRandom() function because the maximum length of this array is going to be 4.
   //and not actually get a random element from within those arrays.
-  //unless I could somehow randomly select and array, and then once that's done, invoke the getRandom function within that array. Which might look something like:
+  //unless I could somehow randomly select an array, and then once that's done, invoke the getRandom function within that array. Which might look something like:
   //on second thought, and after some google, it would be better and simpler to use the .concat method instead of pushing the arrays so that I can avoid this issue. 
   var password = "";
 
@@ -179,10 +181,6 @@ function generatePassword() {
    
 }
 
-
-
-
-console.log("Hello World!");
 
 console.log(password);
 
