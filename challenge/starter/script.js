@@ -87,11 +87,13 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-var special = "";
-var numeric = "";
-var lowerCase = "";
-var upperCase = "";
+
+
+
 var characterAmount = 0;
+
+//prompts and confirms to get password options from user
+//these are returned in an object to be referenced later as either true or false (and pushed into an empty array)
 
 function getPasswordOptions() {
   var characterAmount = parseInt(prompt("How many characters do you want in your password?"));
@@ -99,11 +101,6 @@ function getPasswordOptions() {
   var numeric = confirm("Would you like numbers in your password?");
   var lowerCase = confirm("Would you like lower-case characters in your password?");
   var upperCase = confirm("Would you like upper-case characters in your password?");
-  console.log(characterAmount);
-  console.log(special);
-  console.log(numeric);
-  console.log(lowerCase);
-  console.log(upperCase);
   return {
   characterAmount: characterAmount,
   special: special,
@@ -113,7 +110,6 @@ function getPasswordOptions() {
   };
 }
 
-getPasswordOptions();
 
 //note to self that it might be worth setting some restrictions based on this, so that if the characters is above or below the restriction an error message is returned to the user.
 
@@ -139,50 +135,63 @@ function generatePassword() {
 
   //I need to now create an empty array and push the arrays the user selected depending on whether they are true or false
 
-  var arrays= [];
+  var possibleCharacters = [];
   if (passwordOptions.special) {
-    arrays.push(specialCharacters);
+    possibleCharacters = possibleCharacters.concat(specialCharacters);
   }
   if (passwordOptions.numeric) {
-    arrays.push(numericCharacters);
+    possibleCharacters = possibleCharacters.concat(numericCharacters);
   }
   if (passwordOptions.lowerCase) {
-    arrays.push(lowerCasedCharacters);
+    possibleCharacters = possibleCharacters.concat(lowerCasedCharacters);
   }
   if (passwordOptions.upperCase) {
-    arrays.push(upperCasedCharacters);
+    possibleCharacters = possibleCharacters.concat(upperCasedCharacters);
   }
 
   //I now have an array with all the arrays. The problem is that this is not particularly helpful for the above getRandom() function because the maximum length of this array is going to be 4.
   //and not actually get a random element from within those arrays.
   //unless I could somehow randomly select and array, and then once that's done, invoke the getRandom function within that array. Which might look something like:
-  //
+  //on second thought, and after some google, it would be better and simpler to use the .concat method instead of pushing the arrays so that I can avoid this issue. 
   var password = "";
 
   // Loop for the number of characters specified by the user
   for (var i = 0; i < passwordOptions.characterAmount; i++) {
-  // Randomly select one of the arrays
-  var arrayIndex = Math.floor(Math.random() * arrays.length);
-  // Randomly select a character from the array
-  var characterIndex = Math.floor(Math.random() * arrays[arrayIndex].length);
-  password += arrays[arrayIndex][characterIndex];
+    password += getRandom(possibleCharacters)
   }
+  // Randomly select one of the arrays
+  // var arrayIndex = Math.floor(Math.random() * arrays.length);
+  // Randomly select a character from the array
+  // var characterIndex = Math.floor(Math.random() * arrays[arrayIndex].length);
+  // password += arrays[arrayIndex][characterIndex];
+  // }
 
   // Return the generated password
   return password;
+  console.log(password);  
 }
 
-}
+
 
 generatePassword();
 
-console.log("Hello World!")
+console.log("Hello World!");
 
+console.log(password);
 
+// Get references to the #generate element
+var generateBtn = document.querySelector('#generate');
 
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector('#password');
 
+  passwordText.value = password;
+}
 
-
+// Add event listener to generate button
+generateBtn.addEventListener('click', writePassword);
 
 /*
 below is code that has been majorly tampered with. Above is code that is starting from scratch hopefully with less confusion. 
