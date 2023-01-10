@@ -97,6 +97,12 @@ var characterAmount = 0;
 
 function getPasswordOptions() {
   var characterAmount = parseInt(prompt("How many characters do you want in your password?"));
+  if (parseInt(characterAmount) && characterAmount > 9  && characterAmount < 65){
+    alert("You've successfully selected your character quantity options")
+      } else {
+    alert("You must select a number between 10 and 64")
+      return getPasswordOptions()
+      }
   var special = confirm("Would you like special characters in your password?");
   var numeric = confirm("Would you like numbers in your password?");
   var lowerCase = confirm("Would you like lower-case characters in your password?");
@@ -136,6 +142,7 @@ function generatePassword() {
   //I need to now create an empty array and push the arrays the user selected depending on whether they are true or false
 
   var possibleCharacters = [];
+  
   if (passwordOptions.special) {
     possibleCharacters = possibleCharacters.concat(specialCharacters);
   }
@@ -167,13 +174,13 @@ function generatePassword() {
   // }
 
   // Return the generated password
+  console.log(password); 
   return password;
-  console.log(password);  
+   
 }
 
 
 
-generatePassword();
 
 console.log("Hello World!");
 
